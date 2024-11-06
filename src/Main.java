@@ -1,17 +1,58 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import com.mercado.carrinho.Carrinho;
+import com.mercado.pagamento.CartaoCredito;
+import com.mercado.pagamento.Pagamento;
+import com.mercado.pagamento.ValeAlimentacao;
+import com.mercado.pedido.Pedido;
+import com.mercado.produto.Produto;
+import com.mercado.produto.ProdutoComposto;
+import com.mercado.produto.ProdutoFactory;
+import com.mercado.produto.TipoProduto;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        // Criando produtos usando Factory
+        Produto p1 = ProdutoFactory.criarProduto(TipoProduto.ALIMENTO, "Maçã", 2.0, 150);
+        Produto p2 = ProdutoFactory.criarProduto(TipoProduto.ALIMENTO, "Banana", 1.5, 80);
+        Produto p3 = ProdutoFactory.criarProduto(TipoProduto.BEBIDA, "Refrigerante", 8, 2);
+        Produto p4 = ProdutoFactory.criarProduto(TipoProduto.ELETRONICO, "Celular", 2500, 200);
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        // Produto Composto
+        ProdutoComposto produtoComposto = new ProdutoComposto();
+        produtoComposto.adicionarProduto(p1);
+        produtoComposto.adicionarProduto(p1);
+        produtoComposto.adicionarProduto(p1);
+        produtoComposto.adicionarProduto(p1);
+        produtoComposto.adicionarProduto(p1);
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+        // Criando carrinho
+        Carrinho carrinho = new Carrinho();
+        carrinho.addProduto(produtoComposto);
+        carrinho.addProduto(p2);
+        carrinho.addProduto(p3);
+        carrinho.addProduto(p4);
+
+        // Escolhendo o tipo de pagamento (Bridge Pattern)
+        Pagamento pagamento = new CartaoCredito();
+
+        // Criando pedido
+        Pedido pedido = new Pedido(carrinho, pagamento);
+
+        // Demonstração do Composite Pattern
+        pedido.revisarPedido();
+        pedido.finalizarPedido();
+
+        System.out.println();
+        System.out.println("Agora com Vale Alimentação");
+        System.out.println();
+
+        // Escolhendo o tipo de pagamento (Bridge Pattern)
+        pagamento = new ValeAlimentacao();
+
+        // Criando pedido
+        pedido = new Pedido(carrinho, pagamento);
+
+        // Demonstração do Composite Pattern
+        pedido.revisarPedido();
+        pedido.finalizarPedido();
     }
 }

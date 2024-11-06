@@ -17,8 +17,8 @@ public class Pedido {
         carrinho.getCarrinhoInfo();
         System.out.println("Total do pedido: R$ " + carrinho.getTotal());
     }
+
     public void finalizarPedido() {
-        double total = carrinho.getTotal();
-        pagamento.processarPagamento(total);
+        pagamento.processarPagamento(carrinho);
     }
 }

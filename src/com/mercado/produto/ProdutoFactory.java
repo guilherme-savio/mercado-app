@@ -1,10 +1,19 @@
 package com.mercado.produto;
 
 public class ProdutoFactory {
-    public static Produto criarProduto(String tipo, String nome, double preco) {
-        if (tipo.equalsIgnoreCase("alimento")) {
-            return new Alimento(nome, preco);
+    public static Produto criarProduto(TipoProduto tipo, String nome, double preco, double quantidadeMedida) {
+        switch (tipo) {
+            case ALIMENTO -> {
+                return new Alimento(nome, preco, quantidadeMedida);
+            }
+            case BEBIDA -> {
+                return new Bebida(nome, preco, quantidadeMedida);
+            }
+            case ELETRONICO -> {
+                return new Eletronico(nome, preco, quantidadeMedida);
+            }
         }
+
         return null;
     }
 }

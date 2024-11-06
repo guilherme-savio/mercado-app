@@ -1,6 +1,7 @@
 package com.mercado.carrinho;
 
 import com.mercado.produto.Produto;
+import com.mercado.produto.TipoProduto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +13,15 @@ public class Carrinho {
         produtos.add(produto);
     }
 
+    public Boolean temProduto(TipoProduto tipoProduto) {
+        return produtos.stream().anyMatch(produto -> produto.getClass() == tipoProduto.getProduto());
+    }
+
     public void getCarrinhoInfo() {
         produtos.forEach(Produto::getDetalhes);
     }
 
-    public double getTotal() {
+    public Double getTotal() {
         return produtos.stream().mapToDouble(Produto::getPreco).sum();
     }
 }
