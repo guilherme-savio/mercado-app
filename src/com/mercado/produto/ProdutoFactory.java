@@ -12,8 +12,9 @@ public class ProdutoFactory {
             case ELETRONICO -> {
                 return new Eletronico(nome, preco, quantidadeMedida);
             }
+            default -> {
+                return null;
+            }
         }
-
-        return null;
     }
 }

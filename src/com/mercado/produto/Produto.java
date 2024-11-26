@@ -31,7 +31,7 @@ public abstract class Produto {
         return unidadeMedida.getSigla();
     }
 
-    public void getDetalhes() {
+    public void imprimirDetalhes() {
         System.out.println(getNome() + " " + getQuantidadeMedida() + getUnidadeMedida() + " | R$ " + getPreco() + " | 1 unidade | Total: R$ " + getPreco());
     }
 }

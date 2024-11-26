@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoComposto extends Produto {
+    private static final String MENSAGEM_DETALHE = "%s %s%s | R$ %s | %s unidades | Total: R$ %s";
+
     private List<Produto> produtos;
 
     public ProdutoComposto() {
@@ -21,18 +23,15 @@ public class ProdutoComposto extends Produto {
     @Override
     public Double getPreco() {
         double precoTotal = 0.0;
-        for (Produto produto : produtos) {
-            precoTotal += produto.getPreco();
-        }
-        return precoTotal;
+        return produtos.stream().map(Produto::getPreco).reduce(precoTotal, Double::sum);
     }
 
     @Override
-    public void getDetalhes() {
+    public void imprimirDetalhes() {
         int quantidade = produtos.size();
         if (quantidade > 0) {
             Produto produtoReferencia = produtos.get(0);
-            System.out.println(produtoReferencia.getNome() + " " + produtoReferencia.getQuantidadeMedida() + produtoReferencia.getUnidadeMedida() + " | R$ " + produtoReferencia.getPreco() + " | " + quantidade + " unidades | Total: R$ " + getPreco());
+            System.out.println(String.format(MENSAGEM_DETALHE, produtoReferencia.getNome(), produtoReferencia.getQuantidadeMedida(), produtoReferencia.getUnidadeMedida(), produtoReferencia.getPreco(), quantidade, getPreco()));
         } else {
             System.out.println("Produto Composto vazio.");
         }

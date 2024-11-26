@@ -5,6 +5,7 @@ import com.mercado.produto.TipoProduto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Carrinho {
     private List<Produto> produtos = new ArrayList<>();
@@ -14,14 +15,14 @@ public class Carrinho {
     }
 
     public Boolean temProduto(TipoProduto tipoProduto) {
-        return produtos.stream().anyMatch(produto -> produto.getClass() == tipoProduto.getProduto());
+        return !this.produtos.isEmpty();
     }
 
-    public void getCarrinhoInfo() {
-        produtos.forEach(Produto::getDetalhes);
+    public void imprimirDetalhesCarrinho() {
+        produtos.forEach(Produto::imprimirDetalhes);
     }
 
     public Double getTotal() {
-        return produtos.stream().mapToDouble(Produto::getPreco).sum();
+        return produtos.stream().map(Produto::getPreco).reduce(0.0, Double::sum);
     }
 }

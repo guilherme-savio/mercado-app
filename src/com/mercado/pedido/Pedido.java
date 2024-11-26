@@ -14,7 +14,7 @@ public class Pedido {
 
     public void revisarPedido() {
         System.out.println("------- Pedido -------");
-        carrinho.getCarrinhoInfo();
+        carrinho.imprimirDetalhesCarrinho();
         System.out.println("Total do pedido: R$ " + carrinho.getTotal());
     }
 
